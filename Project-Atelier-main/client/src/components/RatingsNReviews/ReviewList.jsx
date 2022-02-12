@@ -48,7 +48,7 @@ const ReviewList = ( { handleAverageRate, handleReviews, onClick, productId, cur
     setSortedArray([]);
     setFilter(new Array(5).fill(null));
     setIsPost(false);
-    axios.get('/ratings/getReviews', { params: { Id: productId } })
+    axios.get('http://localhost:3050/reviews/reviews', { params: { Id: productId } })
       .then((response)=>{
         if (mounted) {
           const sortByRevelant = response.data.slice(0).sort((x, y) => { return y.helpfulness - x.helpfulness || y.review_id - x.review_id; });
@@ -92,7 +92,7 @@ const ReviewList = ( { handleAverageRate, handleReviews, onClick, productId, cur
           setTotalReviewArray(sortByRevelant);
           setNewestReviewArray(response.data.slice(0).sort((x, y)=>{ return y.review_id - x.review_id; }));
           setHelpfulReviewArray(response.data.slice(0).sort((x, y)=>{ return y.helpfulness - x.helpfulness; }));
-          axios.get('ratings/ratingOverview', { params: { Id: productId } })
+          axios.get('http://localhost:3050/reviews/meta', { params: { Id: productId } })
             .then((response)=>{
               if (mounted) {
                 setAverageRate(response.data.ratings.average);

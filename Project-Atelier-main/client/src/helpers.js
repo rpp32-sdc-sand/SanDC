@@ -42,7 +42,7 @@ export var getQuestionsListInfo = async (productId) => {
 };
 
 export var getReviewInfo = async (productId) => {
-  const styleUrl = '/product/reviewInfo';
+  const styleUrl = 'http://localhost:3050/reviews/reviews';
   return await axios.get(styleUrl, { params: { id: productId } })
     .then((response) => {
       return response.data;

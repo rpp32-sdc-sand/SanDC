@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = 3001;
 const compression = require('compression');
 var expressStaticGzip = require('express-static-gzip');
 
@@ -21,11 +21,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/product', productRouter);
-app.use('/product', relProductsRouter);
+ app.use('/product', productRouter);
+ app.use('/product', relProductsRouter);
 app.use('/ratings', ratingsRouter);
 app.use('/qna', qnaRouter);
 app.use('/cart', cartRouter);
-app.use('/interactions', interactionsRouter);
+ app.use('/interactions', interactionsRouter);
 
 app.listen(port, () => console.log('Listening on:', port));
