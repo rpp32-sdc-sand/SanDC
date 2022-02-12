@@ -1,26 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 3050;
+const port = 3051;
 
-// const productRouter = require('./routes/product.js');
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+})
 
-
-// app.get('/', (req, res) => {
-//   res.send('Hello SDC');
-// });
-
-
-// app.use('/product', productRouter);
-
-
-
-
-// app.use('/reviews', require('./routes/reviews.js'));
-
-app.get('/', function(req, res) {
-  res.send('Hello from root route.')
-});
-app.get('/reviews/reviews', function(req, res) {
+app.get('/reviews', (req, res) => {
+  console.log('GET to reviews');
   let answer = {
     "product": "2",
     "page": 0,
@@ -62,42 +49,10 @@ app.get('/reviews/reviews', function(req, res) {
 
     ]
   }
-  res.send(answer);
-});
 
-app.get('/reviews/meta', function(req, res) {
-  let answer = {
-    "product_id": "2",
-    "ratings": {
-      2: 1,
-      3: 1,
-      4: 2
-    },
-    "recommended": {
-      0: 5
-    },
-    "characteristics": {
-      "Size": {
-        "id": 14,
-        "value": "4.0000"
-      },
-      "Width": {
-        "id": 15,
-        "value": "3.5000"
-      },
-      "Comfort": {
-        "id": 16,
-        "value": "4.0000"
-      }
-  }
-}
   res.send(answer);
-});
+})
 
 app.listen(port, () => {
-  console.log(`SDC app listening on port ${port}`);
-});
-
- module.exports = app;
-
-
+  console.log(`Example app listening on port ${port}`)
+})

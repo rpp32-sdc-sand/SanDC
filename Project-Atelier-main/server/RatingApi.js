@@ -5,11 +5,13 @@ const gitToken = require('../config.js');
 const getTotalReviews = (productId, page) => {
   let options = {
     method: 'GET',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${productId}&count=50&sort=relevant&page=${page}`,
+    url: 'http://localhost:3050/reviews/reviews',
+    //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${productId}&count=50&sort=relevant&page=${page}
     headers: { Authorization: gitToken.Token },
   };
   return axios(options)
     .then(response => {
+      console.log('response', response.data);
       return response.data;
     })
     .catch((err) => {
@@ -47,13 +49,16 @@ const updateReported = (reviewId) => {
 };
 
 const ratingOverview = (productId) => {
+
   let options = {
     method: 'GET',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${productId}`,
+    url: 'http://localhost:3050/reviews/meta',
+    //https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${productId}
     headers: { Authorization: gitToken.Token },
   };
   return axios(options)
     .then(response => {
+      console.log('response line 61', response);
       return response.data;
     })
     .catch((err) => {

@@ -48,7 +48,7 @@ class App extends React.Component {
   }
 
   async updateProduct(productId) {
-    const [productInfo, productStyleInfo, relProductInfo, questionsList, reviewInfo] = await Promise.all([
+    const [productInfo, productStyleInfo, relProductInfo, questionsList, reviewInfo] = await Promise.any([
       getProductInfo(productId),
       getStyleInfo(productId),
       //getRelatedProductInfo(productId),

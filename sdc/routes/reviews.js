@@ -1,26 +1,14 @@
-const express = require('express');
-const app = express();
-const port = 3050;
+'use strict'
 
-// const productRouter = require('./routes/product.js');
+var express = require('express');
 
+var apiv1 = express.Router();
 
-// app.get('/', (req, res) => {
-//   res.send('Hello SDC');
-// });
-
-
-// app.use('/product', productRouter);
-
-
-
-
-// app.use('/reviews', require('./routes/reviews.js'));
-
-app.get('/', function(req, res) {
-  res.send('Hello from root route.')
+apiv1.get('/', function(req, res) {
+  res.send('Hello from APIv1 root route.');
 });
-app.get('/reviews/reviews', function(req, res) {
+
+apiv1.get('/reviews', function(req, res) {
   let answer = {
     "product": "2",
     "page": 0,
@@ -65,7 +53,7 @@ app.get('/reviews/reviews', function(req, res) {
   res.send(answer);
 });
 
-app.get('/reviews/meta', function(req, res) {
+apiv1.get('/meta', function(req, res) {
   let answer = {
     "product_id": "2",
     "ratings": {
@@ -94,10 +82,4 @@ app.get('/reviews/meta', function(req, res) {
   res.send(answer);
 });
 
-app.listen(port, () => {
-  console.log(`SDC app listening on port ${port}`);
-});
-
- module.exports = app;
-
-
+module.exports = apiv1;
