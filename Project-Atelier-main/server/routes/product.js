@@ -50,7 +50,7 @@ productRouter.get('/productInfo', async (req, res) => {
     ...prodStyleInfo,
     ...prodRatingInfo
   };
-
+  // console.log('productData', productData);
   res.status(200).send(productData);
 });
 
