@@ -24,7 +24,7 @@ CREATE TABLE sdc.products.styles (
   name VARCHAR (50),
   sale_price VARCHAR (11),
   original_price VARCHAR (11),
-  style_default BOOLEAN,
+  "default?" BOOLEAN,
   PRIMARY KEY (pk),
   UNIQUE (styles_id),
   CONSTRAINT fk_products
@@ -82,7 +82,7 @@ DELIMITER ','
 CSV HEADER;
 
 
-COPY sdc.products.styles(styles_id, product_id, name, sale_price, original_price, style_default)
+COPY sdc.products.styles(styles_id, product_id, name, sale_price, original_price, "default?")
 FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/styles.csv'
 DELIMITER ','
 CSV HEADER;

@@ -44,12 +44,9 @@ productRouter.get('/:product_id/styles', async (req, res) => {
 
   models.products.getStyles(() => {}, pool, product_id)
     .then((style) => {
-      console.log('style results: ', typeof style);
-      // console.log(style.results);
       var styleId;
       var promiseArray = [];
       for(var i = 0; i < style.results.length; i++) {
-        // console.log(style.results[i].styles_id);
         styleId = style.results[i].styles_id;
         promiseArray.push(models.products.getPhotos(() => {}, pool, styleId));
       }
@@ -60,10 +57,23 @@ productRouter.get('/:product_id/styles', async (req, res) => {
         })
         return style;
       });
-
     }).then((styleWithPhotos) => {
-      console.log('obj with photos: ', styleWithPhotos);
-      res.send(styleWithPhotos);
+      // add skus
+      // console.log('obj with photos: ', styleWithPhotos);
+
+      var styleId;
+      var promiseArray = [];
+      for(var i = 0; i < styleWithPhotos.results.length; i++) {
+        styleId = styleWithPhotos.results[i].styles_id;
+        promiseArray.push(models.products.getSKUS(() => {}, pool, styleId));
+      }
+
+      Promise.all(promiseArray).then((resolved) => {
+        resolved.forEach((element, index) => {
+          styleWithPhotos.results[index].skus = element.rows;
+        })
+        res.send(styleWithPhotos);
+      });
     })
 });
 

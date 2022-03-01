@@ -39,6 +39,13 @@ var products = {
     } catch (err) {
       console.log('error: ', err);
     }},
+  getSKUS: async function(cb, pool, style_id) {
+    try {
+      return await pool.query(`SELECT * FROM sdc.products.skus WHERE styles_id = ${style_id}`);
+      // return product;
+    } catch (err) {
+      console.log('error: ', err);
+    }},
   // get styles
   getStyles: async function(cb, pool, product_id) {
     try {
@@ -57,13 +64,6 @@ var products = {
       }
     },
   };
-                    // });
-                    // for (var i = 0; i < styles.results.length; i++) {
-                    //   console.log('styles id: ' styles.results[i].styles_id);
-                    //   styles.results[i].photos = product.getPhotos(() => {}. pool, styles.results[i].styles_id);
-                    // }
-
-
 
 module.exports.products = products;
 
