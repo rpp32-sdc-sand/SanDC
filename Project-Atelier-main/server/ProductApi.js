@@ -28,10 +28,11 @@ const getProductStyles = (productId) => {
   };
   return axios(options)
     .then((response) => {
+      console.log('client styles 31: ');
+      console.log(response.data);
       return response.data;
     });
 };
-
 const getProductReviews = (productId) => {
   let options = {
     method: 'GET',

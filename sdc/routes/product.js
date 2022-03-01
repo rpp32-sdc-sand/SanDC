@@ -37,18 +37,34 @@ productRouter.get('/:product_id', async (req, res) => {
 });
 
 
-
 productRouter.get('/:product_id/styles', async (req, res) => {
-  console.log('getting styles');
+  console.log('getting styles in routes');
   var product_id = req.params.product_id;
   product_id = 1;
 
   models.products.getStyles(() => {}, pool, product_id)
     .then((style) => {
-      console.log('style: ', style);
-      res.send(style);
-    });
+      console.log('style results: ', typeof style);
+      // console.log(style.results);
+      var styleId;
+      var promiseArray = [];
+      for(var i = 0; i < style.results.length; i++) {
+        // console.log(style.results[i].styles_id);
+        styleId = style.results[i].styles_id;
+        promiseArray.push(models.products.getPhotos(() => {}, pool, styleId));
+      }
+      // console.log('promiseArray.length: ', promiseArray.length);
+      return Promise.all(promiseArray).then((resolved) => {
+        resolved.forEach((element, index) => {
+          style.results[index].photos = element.rows;
+        })
+        return style;
+      });
 
+    }).then((styleWithPhotos) => {
+      console.log('obj with photos: ', styleWithPhotos);
+      res.send(styleWithPhotos);
+    })
 });
 
 

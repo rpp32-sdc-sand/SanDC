@@ -31,23 +31,38 @@ var products = {
     } catch (err) {
       console.log('error: ', err);
     }},
-    // get styles
-    getStyles: async function(cb, pool, product_id) {
-      try {
-        return await pool.query(`SELECT * FROM sdc.products.styles WHERE product_id = ${product_id}`)
-          .then ((style) => {
-            // console.log(style);
-            var styleObj = {};
-            styleObj.product_id = product_id.toString();
-            styleObj.results = style.rows;
-
-            return styleObj;
-          })
+  // get photo information
+  getPhotos: async function(cb, pool, style_id) {
+    try {
+      return await pool.query(`SELECT * FROM sdc.products.photos WHERE styles_id = ${style_id}`);
+      // return product;
+    } catch (err) {
+      console.log('error: ', err);
+    }},
+  // get styles
+  getStyles: async function(cb, pool, product_id) {
+    try {
+      return await pool.query(`SELECT * FROM sdc.products.styles WHERE product_id = ${product_id}`)
+        .then ((style) => {
+          // console.log(style);
+          var styleObj = {};
+          styleObj.product_id = product_id.toString();
+          styleObj.results = style.rows;
+          // console.log('style obj', styleObj);
+          return styleObj;
+        })
         // return product;
       } catch (err) {
         console.log('error: ', err);
-      }},
-}
+      }
+    },
+  };
+                    // });
+                    // for (var i = 0; i < styles.results.length; i++) {
+                    //   console.log('styles id: ' styles.results[i].styles_id);
+                    //   styles.results[i].photos = product.getPhotos(() => {}. pool, styles.results[i].styles_id);
+                    // }
+
 
 
 module.exports.products = products;
