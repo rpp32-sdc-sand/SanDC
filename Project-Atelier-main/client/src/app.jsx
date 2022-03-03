@@ -56,7 +56,7 @@ class App extends React.Component {
     ]);
 
     this.setState({
-      productId: productId,
+      productId: productInfo.id,
       currentProduct: productInfo,
       currentProductStyle: productStyleInfo,
       relatedProducts: relProductInfo,
@@ -120,6 +120,7 @@ class App extends React.Component {
       questionsNAnswers === null) {
       return null;
     } else {
+      console.log(this.state);
       return (
         <div>
           <TopSearchBar />

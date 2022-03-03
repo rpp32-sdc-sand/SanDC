@@ -27,7 +27,8 @@ productRouter.get('/:product_id', async (req, res) => {
   console.log('getting product by id');
 
   var product_id = req.params.product_id;
-  product_id = 1;
+  console.log('product_id in get: ', product_id);
+  // product_id = 1;
 
   models.products.getSpecific(() => {}, pool, product_id)
     .then((product) => {
@@ -38,9 +39,10 @@ productRouter.get('/:product_id', async (req, res) => {
 
 
 productRouter.get('/:product_id/styles', async (req, res) => {
-  console.log('getting styles in routes');
+  // console.log('getting styles in routes');
   var product_id = req.params.product_id;
-  product_id = 1;
+  console.log('product_id in productRouter.get:', product_id);
+  // product_id = 1;
 
   models.products.getStyles(() => {}, pool, product_id)
     .then((style) => {
@@ -59,18 +61,27 @@ productRouter.get('/:product_id/styles', async (req, res) => {
       });
     }).then((styleWithPhotos) => {
       // add skus
-      // console.log('obj with photos: ', styleWithPhotos);
 
       var styleId;
       var promiseArray = [];
       for(var i = 0; i < styleWithPhotos.results.length; i++) {
         styleId = styleWithPhotos.results[i].styles_id;
+        // styleId = 126925;
         promiseArray.push(models.products.getSKUS(() => {}, pool, styleId));
       }
 
       Promise.all(promiseArray).then((resolved) => {
         resolved.forEach((element, index) => {
-          styleWithPhotos.results[index].skus = element.rows;
+          console.log('skus crap');
+          // console.log(element.rows);
+          styleWithPhotos.results[index].skus = {};
+          for (var i = 0; i < element.rows.length; i++) {
+            var key = element.rows[i].id;
+            styleWithPhotos.results[index].skus[key] = {
+              quantity: element.rows[i].quantity,
+              size: element.rows[i].size
+            }
+          }
         })
         res.send(styleWithPhotos);
       });

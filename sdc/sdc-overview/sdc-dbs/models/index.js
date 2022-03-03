@@ -1,4 +1,4 @@
-// const { pool } = require('../db.js');
+
 var products = {
   getList: async function(cb, pool, page = 1, count = 5) {
     try {
@@ -27,7 +27,6 @@ var products = {
             return(prod.rows[0]);
           });
         })
-      // return product;
     } catch (err) {
       console.log('error: ', err);
     }},
@@ -35,14 +34,13 @@ var products = {
   getPhotos: async function(cb, pool, style_id) {
     try {
       return await pool.query(`SELECT * FROM sdc.products.photos WHERE styles_id = ${style_id}`);
-      // return product;
     } catch (err) {
       console.log('error: ', err);
     }},
+  // get SKUS
   getSKUS: async function(cb, pool, style_id) {
     try {
       return await pool.query(`SELECT * FROM sdc.products.skus WHERE styles_id = ${style_id}`);
-      // return product;
     } catch (err) {
       console.log('error: ', err);
     }},
@@ -58,7 +56,6 @@ var products = {
           // console.log('style obj', styleObj);
           return styleObj;
         })
-        // return product;
       } catch (err) {
         console.log('error: ', err);
       }
@@ -66,21 +63,3 @@ var products = {
   };
 
 module.exports.products = products;
-
-
-// you can also use async/await
-// const res = await pool.query('SELECT NOW()');
-// await pool.end();
-
-// // clients will also use environment variables
-// // for connection information
-// const client = new Client();
-// await client.connect();
-
-// const res = await client.query('SELECT NOW()');
-// await client.end();
-
-// pool.query('SELECT * from sdc.products.product LIMIT $1 OFFSET $2', (err, res) => {
-//   console.log(err, res);
-//   pool.end();
-// });
