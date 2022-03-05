@@ -32,7 +32,7 @@ productRouter.get('/:product_id', async (req, res) => {
 
   models.products.getSpecific(() => {}, pool, product_id)
     .then((product) => {
-      // console.log('prod: ', product);
+      console.log('prod on server: ', product);
       res.send(product);
     });
 });

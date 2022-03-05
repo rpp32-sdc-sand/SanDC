@@ -18,17 +18,42 @@ var products = {
   // getSpecificProduct
   getSpecific: async function(cb, pool, product_id) {
     try {
-      return await pool.query(`SELECT * FROM sdc.products.product WHERE id = ${product_id}`)
-        .then ((prod) => {
-          return products.getFeatures(() => {}, pool, product_id)
+      return await pool.query(
+        `SELECT
+          sdc.products.product.id, sdc.products.product.name,
+          sdc.products.product.slogan, sdc.products.product.description,
+          sdc.products.product.category, sdc.products.product.default_price
+        FROM sdc.products.product WHERE id = ${product_id}`
+      ).then ((prod) => {
+        return products.getFeatures(() => {}, pool, product_id)
           .then ((features) => {
             prod.rows[0].features = features.rows;
             // cb(prod.rows[0]);
             return(prod.rows[0]);
           });
-        })
+      })
     } catch (err) {
       console.log('error: ', err);
+      return err;
+    }},
+  // getSpecificProduct
+  getSpecificV2: async function(cb, pool, product_id) {
+    try {
+      return await pool.query(
+        `SELECT
+          sdc.products.product.id, sdc.products.product.name,
+          sdc.products.product.slogan, sdc.products.product.description,
+          sdc.products.product.category, sdc.products.product.default_price,
+          sdc.products.features.feature, sdc.products.features.value
+        FROM
+          sdc.products.product INNER JOIN sdc.products.features
+        ON
+          sdc.products.product.id = sdc.products.features.product_id
+        WHERE
+          sdc.products.product.id = ${product_id}`);
+    } catch (err) {
+      console.log('error: ', err);
+      return err;
     }},
   // get photo information
   getPhotos: async function(cb, pool, style_id) {

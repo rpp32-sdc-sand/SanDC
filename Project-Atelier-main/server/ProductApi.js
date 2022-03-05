@@ -31,14 +31,14 @@ const getProductStyles = (productId) => {
   };
   return axios(options)
     .then((response) => {
-      console.log('client styles 31: ');
-      console.log(response.data);
-      console.log('>>>>>>>>>>>>>>>>>>>');
-      console.log('response.data', response.data.results);
-      console.log('skus0:', response.data.results[0].skus);
-      // console.log('skus1:', response.data.results[1].skus);
-      // console.log('skus0 data:', response.data.results[0].skus['2313078']);
-      console.log('<<<<<<<<<<<<<<<<<<');
+      // console.log('client styles 31: ');
+      // console.log(response.data);
+      // console.log('>>>>>>>>>>>>>>>>>>>');
+      // console.log('response.data', response.data.results);
+      // console.log('skus0:', response.data.results[0].skus);
+      // // console.log('skus1:', response.data.results[1].skus);
+      // // console.log('skus0 data:', response.data.results[0].skus['2313078']);
+      // console.log('<<<<<<<<<<<<<<<<<<');
       return response.data;
     });
 };
