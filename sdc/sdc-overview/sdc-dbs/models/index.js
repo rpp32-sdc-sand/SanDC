@@ -39,7 +39,7 @@ var products = {
   // getSpecificProduct
   getSpecificV2: async function(cb, pool, product_id) {
     try {
-      return await pool.query(
+      var result = await pool.query(
         `SELECT
           sdc.products.product.id, sdc.products.product.name,
           sdc.products.product.slogan, sdc.products.product.description,
@@ -51,6 +51,13 @@ var products = {
           sdc.products.product.id = sdc.products.features.product_id
         WHERE
           sdc.products.product.id = ${product_id}`);
+
+      // var resultObj = result.rows[0];
+      // resultObj[features] = result.rows.shift();
+      // // if continuing this route, finish
+
+      return result;
+
     } catch (err) {
       console.log('error: ', err);
       return err;

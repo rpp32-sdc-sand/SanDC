@@ -32,7 +32,6 @@ describe('product overview tests', function() {
   describe('test specific product api', function () {
     it('getSpecific should return productID1', async function () {
       var productID1 = {
-        pk: 1,
         id: 1,
         name: 'Camo Onesie',
         slogan: 'Blend in to your crowd',
@@ -46,12 +45,12 @@ describe('product overview tests', function() {
       }
 
       var result = await models.products.getSpecific(() => {}, pool, 1);
+
       expect(JSON.stringify(result)).to.equal(JSON.stringify(productID1));
     });
 
-    it('getSpecificV2 should return productID1', async function () {
+    xit('getSpecificV2 should return productID1', async function () {
       var productID1 = {
-        pk: 1,
         id: 1,
         name: 'Camo Onesie',
         slogan: 'Blend in to your crowd',

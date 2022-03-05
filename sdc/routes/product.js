@@ -72,7 +72,7 @@ productRouter.get('/:product_id/styles', async (req, res) => {
 
       Promise.all(promiseArray).then((resolved) => {
         resolved.forEach((element, index) => {
-          console.log('skus crap');
+          // console.log('skus stuff');
           // console.log(element.rows);
           styleWithPhotos.results[index].skus = {};
           for (var i = 0; i < element.rows.length; i++) {

@@ -73,7 +73,6 @@ CREATE TABLE sdc.products.features (
 
 
 
-
 -- ETL
 
 COPY sdc.products.product(id, name, slogan, description, category, default_price)
@@ -102,3 +101,10 @@ COPY sdc.products.features(id, product_id, feature, value)
 FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/features.csv'
 DELIMITER ','
 CSV HEADER;
+
+
+CREATE INDEX idx_products_id on sdc.products.product(id);
+CREATE INDEX idx_styles_by_productid on sdc.products.styles(product_id);
+CREATE INDEX idx_photos_by_stylesid on sdc.products.photos(styles_id);
+CREATE INDEX idx_skus_by_stylesid on sdc.products.skus(styles_id );
+CREATE INDEX idx_features_by_productid on sdc.products.features(product_id);

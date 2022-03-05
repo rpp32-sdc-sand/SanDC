@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "start:nodemon": "nodemon index.js",
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "test": "node ./node_modules/mocha/bin/mocha",
+    "overviewDB": "date, psql -f ./sdc-overview/sdc-dbs/models/pgschema.sql -p 5432, date"
   },
   "author": "",
   "license": "ISC",
