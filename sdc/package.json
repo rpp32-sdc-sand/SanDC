@@ -7,7 +7,8 @@
     "start": "node index.js",
     "start:nodemon": "nodemon index.js",
     "test": "node ./node_modules/mocha/bin/mocha",
-    "overviewDB": "date, psql -f ./sdc-overview/sdc-dbs/models/pgschema.sql -p 5432, date"
+    "overviewDB": "date; psql -f ./sdc-overview/sdc-dbs/models/pgschema.sql -p 5432; date",
+    "k6:prodOverview": "k6 run ./sdc-overview/k6test.js"
   },
   "author": "",
   "license": "ISC",

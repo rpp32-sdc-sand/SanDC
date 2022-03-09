@@ -65,29 +65,66 @@ var products = {
   // get photo information
   getPhotos: async function(cb, pool, style_id) {
     try {
-      return await pool.query(`SELECT * FROM sdc.products.photos WHERE styles_id = ${style_id}`);
+      return await pool.query(`SELECT * FROM sdc.products.photos WHERE style_id = ${style_id}`);
     } catch (err) {
       console.log('error: ', err);
     }},
   // get SKUS
   getSKUS: async function(cb, pool, style_id) {
     try {
-      return await pool.query(`SELECT * FROM sdc.products.skus WHERE styles_id = ${style_id}`);
+      return await pool.query(`SELECT * FROM sdc.products.skus WHERE style_id = ${style_id}`);
     } catch (err) {
       console.log('error: ', err);
     }},
   // get styles
   getStyles: async function(cb, pool, product_id) {
     try {
-      return await pool.query(`SELECT * FROM sdc.products.styles WHERE product_id = ${product_id}`)
-        .then ((style) => {
-          // console.log(style);
-          var styleObj = {};
-          styleObj.product_id = product_id.toString();
-          styleObj.results = style.rows;
-          // console.log('style obj', styleObj);
-          return styleObj;
-        })
+      return await pool.query(
+        `SELECT style_id, product_id, name, sale_price, original_price, "default?"
+        FROM sdc.products.styles WHERE product_id = ${product_id}
+      `)
+      .then((style) => {
+        var styleId;
+        var promiseArray = [];
+        for(var i = 0; i < style.rows.length; i++) {
+          styleId = style.rows[i].style_id;
+          if (style.rows[i].sale_price === "null") {
+            style.rows[i].sale_price = null;
+          }
+          promiseArray.push(products.getPhotos(() => {}, pool, styleId));
+        }
+        return Promise.all(promiseArray).then((resolved) => {
+          resolved.forEach((element, index) => {
+            style.rows[index].photos = element.rows;
+          });
+          return style;
+        });
+      }).then((styleWithPhotos) => {
+        // add skus
+        var styleId;
+        var promiseArray = [];
+        for(var i = 0; i < styleWithPhotos.rows.length; i++) {
+          styleId = styleWithPhotos.rows[i].style_id;
+          promiseArray.push(products.getSKUS(() => {}, pool, styleId));
+        }
+
+        return Promise.all(promiseArray).then((resolved) => {
+          resolved.forEach((element, index) => {
+            styleWithPhotos.rows[index].skus = {};
+            for (var i = 0; i < element.rows.length; i++) {
+              var key = element.rows[i].id;
+              styleWithPhotos.rows[index].skus[key] = {
+                quantity: element.rows[i].quantity,
+                size: element.rows[i].size
+              }
+            }
+          });
+
+          return ({product_id: product_id,
+            results: styleWithPhotos.rows
+          });
+        });
+      })
       } catch (err) {
         console.log('error: ', err);
       }

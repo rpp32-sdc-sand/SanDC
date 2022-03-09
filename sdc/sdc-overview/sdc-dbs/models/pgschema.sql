@@ -19,14 +19,14 @@ CREATE TABLE sdc.products.product (
 
 CREATE TABLE sdc.products.styles (
   pk SERIAL,
-  styles_id INT,
+  style_id INT,
   product_id INT,
   name VARCHAR (50),
   sale_price VARCHAR (11),
   original_price VARCHAR (11),
   "default?" BOOLEAN,
   PRIMARY KEY (pk),
-  UNIQUE (styles_id),
+  UNIQUE (style_id),
   CONSTRAINT fk_products
     FOREIGN KEY (product_id)
     REFERENCES sdc.products.product(id)
@@ -35,27 +35,27 @@ CREATE TABLE sdc.products.styles (
 CREATE TABLE sdc.products.photos (
   pk SERIAL,
   id INT,
-  styles_id INT,
+  style_id INT,
   url TEXT,
   thumbnail_url TEXT,
   PRIMARY KEY (pk),
   UNIQUE (id),
   CONSTRAINT fk_styles
-    FOREIGN KEY (styles_id)
-    REFERENCES sdc.products.styles(styles_id)
+    FOREIGN KEY (style_id)
+    REFERENCES sdc.products.styles(style_id)
 );
 
 CREATE TABLE sdc.products.skus (
   pk SERIAL,
   id INT,
-  styles_id INT,
+  style_id INT,
   size TEXT,
   quantity INT,
   PRIMARY KEY (pk),
   UNIQUE (id),
   CONSTRAINT fk_styles
-    FOREIGN KEY (styles_id)
-    REFERENCES sdc.products.styles(styles_id)
+    FOREIGN KEY (style_id)
+    REFERENCES sdc.products.styles(style_id)
 );
 
 CREATE TABLE sdc.products.features (
@@ -81,18 +81,18 @@ DELIMITER ','
 CSV HEADER;
 
 
-COPY sdc.products.styles(styles_id, product_id, name, sale_price, original_price, "default?")
+COPY sdc.products.styles(style_id, product_id, name, sale_price, original_price, "default?")
 FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/styles.csv'
 DELIMITER ','
 CSV HEADER;
 
-COPY sdc.products.photos(id, styles_id, url, thumbnail_url)
+COPY sdc.products.photos(id, style_id, url, thumbnail_url)
 FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/photos.csv'
 DELIMITER ','
 CSV HEADER;
 
 
-COPY sdc.products.skus(id, styles_id, size, quantity)
+COPY sdc.products.skus(id, style_id, size, quantity)
 FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/skus.csv'
 DELIMITER ','
 CSV HEADER;
@@ -105,6 +105,6 @@ CSV HEADER;
 
 CREATE INDEX idx_products_id on sdc.products.product(id);
 CREATE INDEX idx_styles_by_productid on sdc.products.styles(product_id);
-CREATE INDEX idx_photos_by_stylesid on sdc.products.photos(styles_id);
-CREATE INDEX idx_skus_by_stylesid on sdc.products.skus(styles_id );
+CREATE INDEX idx_photos_by_stylesid on sdc.products.photos(style_id);
+CREATE INDEX idx_skus_by_stylesid on sdc.products.skus(style_id );
 CREATE INDEX idx_features_by_productid on sdc.products.features(product_id);
