@@ -3,6 +3,8 @@ config.js
 coverage
 *.pem
 *.csv
+newrelic.js
+newrelic_agent.log
 
 client/dist/bundle.js
 client/dist/bundle.js.map

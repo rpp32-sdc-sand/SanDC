@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const models = require('../sdc-overview/sdc-dbs/models/index.js');
 const { pool } = require('./db.js');
 
-
 productRouter.use(express.json());
 productRouter.use(bodyParser.urlencoded({extended: false}));
 productRouter.use(bodyParser.json());
