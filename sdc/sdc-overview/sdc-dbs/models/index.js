@@ -4,7 +4,7 @@ var products = {
     try {
       var result = await pool.query(`SELECT * FROM sdc.products.product LIMIT ${count} OFFSET ${(page - 1) * count}`);
       // console.log(result);
-      return(result);
+      cb(result);
     } catch (err) {
       console.log('error: ', err);
       throw(res);
