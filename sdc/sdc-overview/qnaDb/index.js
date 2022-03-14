@@ -10,12 +10,13 @@ const pool = new Pool({
 });
 */
 
-
-const connectionString = 'postgres://postgres:Uncompromised@ec2-54-86-36-189.compute-1.amazonaws.com:5432/questionsandanswers';
+//connectionString = 'dbType://username:password@address:port/database'
+const ip = 'ec2-52-91-81-110.compute-1.amazonaws.com';
+const connectionString = `postgres://postgres:Uncompromised@${ip}:5432/questionsandanswers`;
 const db = new Client({connectionString: connectionString});
 db.connect(err => {
     if (err) {
-        console.log('Connection error from PostGres');
+        console.log('Connection error from PostGres', err);
     } else {
         console.log("Successfully connected to Postgres");
     }
