@@ -9,7 +9,8 @@
     "start:newRelic": "nodemon -r newrelic index.js",
     "test": "node ./node_modules/mocha/bin/mocha",
     "overviewDB": "date; psql -f ./sdc-overview/sdc-dbs/models/pgschema.sql -p 5432; date",
-    "k6:prodOverview": "k6 run ./sdc-overview/k6test.js"
+    "k6:prodOverview": "k6 run ./sdc-overview/k6test.js",
+    "downloadOverData": "gdown https://drive.google.com/uc?id=1fXN-J3gxtA9ZUa2EqzVFnkjszWwd7yVF; gdown https://drive.google.com/uc?id=1EVVGKLDGzaU0amRaPV-tHZx11ASwibT7; gdown https://drive.google.com/uc?id=1tNIJx2QhTRfd4qVmOVgJgiyvoICbTJH-; gdown https://drive.google.com/uc?id=1o64GDzSqwkoRoZvP3SmGY_Mrv2708oPn, gdown https://drive.google.com/uc?id=1bY6hc-b1FbZsHe_Cdhq6wqSK7QBo1h8h"
   },
   "author": "",
   "license": "ISC",

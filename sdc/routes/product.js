@@ -29,10 +29,13 @@ productRouter.get('/:product_id', async (req, res) => {
   console.log('product_id in get: ', product_id);
   // product_id = 1;
 
-  models.products.getSpecific(() => {}, pool, product_id)
+  models.products.getSpecific(pool, product_id)
     .then((product) => {
       console.log('prod on server: ', product);
       res.send(product);
+    })
+    .catch((error) => {
+      res.sendStatus(400);
     });
 });
 
@@ -43,9 +46,14 @@ productRouter.get('/:product_id/styles', async (req, res) => {
   console.log('product_id in productRouter.get:', product_id);
   // product_id = 1;
 
-  models.products.getStyles(() => {}, pool, product_id)
+  models.products.getStyles(pool, product_id)
   .then((result) => {
+    console.log('styles router success');
     res.send(result);
+  })
+  .catch((error) => {
+    console.log('router error');
+    res.sendStatus(400);
   });
 });
 

@@ -3,7 +3,7 @@ const gitToken = require('../config.js');
 
 
 const getSpecificProduct = (productId) => {
-  productId = 1;
+  productId = 1000012;
   let options = {
     method: 'GET',
     // hr api
@@ -22,6 +22,7 @@ const getSpecificProduct = (productId) => {
     .catch((error) => {
       // console.log('options 18:', options);
       console.log('error:', error);
+      return error;
     });
 };
 

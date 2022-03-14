@@ -5,7 +5,7 @@ const pool = new Pool({
   password: '',
   database: 'sdc',
   // host: '52.91.62.180',
-  host: localhost,
+  host: '127.0.0.1',
   port: '5432'
 });
 
