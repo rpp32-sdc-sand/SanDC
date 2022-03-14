@@ -6,8 +6,12 @@ const getSpecificProduct = (productId) => {
   productId = 1;
   let options = {
     method: 'GET',
+    // hr api
     // url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${productId}`,
+    // local test
     url: `http://localhost:3050/fec2/hr-rpp/products/${productId}`,
+    // sdc api
+    // url: `http://3.82.163.215:3050/fec2/hr-rpp/products/${productId}`,
     headers: { Authorization: gitToken.Token },
   };
   return axios(options)
@@ -27,6 +31,7 @@ const getProductStyles = (productId) => {
     method: 'GET',
     // url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${productId}/styles`,
     url: `http://localhost:3050/fec2/hr-rpp/products/${productId}/styles`,
+    // url: `http://3.82.163.215:3050/fec2/hr-rpp/products/${productId}/styles`,
     headers: { Authorization: gitToken.Token },
   };
   return axios(options)

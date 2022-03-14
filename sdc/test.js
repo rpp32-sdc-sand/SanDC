@@ -23,7 +23,7 @@ describe('product overview tests', function() {
     user: 'postgres',
     password: '',
     database: 'sdc',
-    host: 'localhost',
+    host: '52.91.62.180',
     port: '5432',
     max: 1,
     idleTimeoutMillis: 0
