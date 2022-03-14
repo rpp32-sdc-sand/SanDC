@@ -14,7 +14,12 @@ const averageRate = function(ratings, recommended) {
     }
   }
 
+  if (Object.keys(ratings).length === 0) {
+    return ['0', 0, 0, 0, 0, 0, 0];
+  }
+
   const totalRatings = Object.values(ratings).reduce((a, b) => Number(a) + Number(b));
+
   const fiveStar = Math.round((b[4] / totalRatings) * 100);
   const fourStar = Math.round((b[3] / totalRatings) * 100);
   const threeStar = Math.round((b[2] / totalRatings) * 100);
@@ -31,6 +36,31 @@ const averageRate = function(ratings, recommended) {
 
 productRouter.get('/productInfo', async (req, res) => {
   let id = req.query.id;
+
+  var prodInfo = await productApi.getSpecificProduct(id);
+  var prodStyleInfo = await productApi.getProductStyles(id);
+  var prodRatingInfo = await ratingApi.ratingOverview(id);
+  var prodRatingAverage = await averageRate(prodRatingInfo.ratings, prodRatingInfo.recommended);
+
+  prodRatingInfo.ratings.average = prodRatingAverage[0];
+  prodRatingInfo.recommended = prodRatingAverage[1];
+  prodRatingInfo.ratings['1'] = prodRatingAverage[2];
+  prodRatingInfo.ratings['2'] = prodRatingAverage[3];
+  prodRatingInfo.ratings['3'] = prodRatingAverage[4];
+  prodRatingInfo.ratings['4'] = prodRatingAverage[5];
+  prodRatingInfo.ratings['5'] = prodRatingAverage[6];
+
+  var productData = {
+    ...prodInfo,
+    ...prodStyleInfo,
+    ...prodRatingInfo
+  };
+  // console.log('productData', productData);
+  res.status(200).send(productData);
+});
+
+productRouter.get('/productInfo/:prodID', async (req, res) => {
+  var id = await req.params.prodID;
 
   var prodInfo = await productApi.getSpecificProduct(id);
   var prodStyleInfo = await productApi.getProductStyles(id);

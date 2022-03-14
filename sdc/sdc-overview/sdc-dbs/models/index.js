@@ -19,24 +19,24 @@ var products = {
   // getSpecificProduct
   getSpecific: async function(pool, product_id) {
     // try {
-      return await pool.query(
-        `SELECT
-          sdc.products.product.id, sdc.products.product.name,
-          sdc.products.product.slogan, sdc.products.product.description,
-          sdc.products.product.category, sdc.products.product.default_price
-        FROM sdc.products.product WHERE id = ${product_id}`
-      ).then ((prod) => {
-        return products.getFeatures(pool, product_id)
-          .then ((features) => {
-            prod.rows[0].features = features.rows;
-            return(prod.rows[0]);
-          })
-          .catch((err) => {
-            throw(err);
-          });
-      }).catch((err) => {
-        throw(err)
-      });
+    return await pool.query(
+      `SELECT
+        sdc.products.product.id, sdc.products.product.name,
+        sdc.products.product.slogan, sdc.products.product.description,
+        sdc.products.product.category, sdc.products.product.default_price
+      FROM sdc.products.product WHERE id = ${product_id}`
+    ).then ((prod) => {
+      return products.getFeatures(pool, product_id)
+        .then ((features) => {
+          prod.rows[0].features = features.rows;
+          return(prod.rows[0]);
+        })
+        .catch((err) => {
+          throw(err);
+        });
+    }).catch((err) => {
+      throw(err)
+    });
   },
 
   // get photo information
