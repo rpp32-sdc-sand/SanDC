@@ -24,8 +24,10 @@ const getProductStyles = (productId) => {
     url: `http://3.82.163.215:3050/fec2/hr-rpp/products/${productId}/styles`,
     headers: { Authorization: gitToken.Token },
   };
+
   return axios(options)
     .then((response) => {
+
       return response.data;
     });
 };
