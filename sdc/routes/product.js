@@ -18,20 +18,20 @@ productRouter.get('/', async (req, res) => {
 });
 
 productRouter.get('/products', async (req, res) => {
-  console.log('products route triggered')
+  // console.log('products route triggered')
   res.sendStatus(200);
 });
 
 productRouter.get('/:product_id', async (req, res) => {
-  console.log('getting product by id');
+  // console.log('getting product by id');
 
   var product_id = req.params.product_id;
-  console.log('product_id in get: ', product_id);
+  // console.log('product_id in get: ', product_id);
   // product_id = 1;
 
   models.products.getSpecific(pool, product_id)
     .then((product) => {
-      console.log('prod on server: ', product);
+      // console.log('prod on server: ', product);
       res.send(product);
     })
     .catch((error) => {
@@ -43,7 +43,7 @@ productRouter.get('/:product_id', async (req, res) => {
 productRouter.get('/:product_id/styles', async (req, res) => {
   // console.log('getting styles in routes');
   var product_id = req.params.product_id;
-  console.log('product_id in productRouter.get:', product_id);
+  // console.log('product_id in productRouter.get:', product_id);
   // product_id = 1;
 
   models.products.getStyles(pool, product_id)
