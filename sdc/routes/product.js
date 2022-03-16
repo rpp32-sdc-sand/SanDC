@@ -48,11 +48,11 @@ productRouter.get('/:product_id/styles', async (req, res) => {
 
   models.products.getStyles(pool, product_id)
   .then((result) => {
-    console.log('styles router success');
+    // console.log('styles router success');
     res.send(result);
   })
   .catch((error) => {
-    console.log('router error');
+    // console.log('router error');
     res.sendStatus(400);
   });
 });

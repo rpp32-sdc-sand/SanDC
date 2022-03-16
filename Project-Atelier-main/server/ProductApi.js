@@ -1,7 +1,7 @@
 const axios = require('axios');
 const gitToken = require('../config.js');
 
-var aws = '3.95.202.187';
+var aws = '54.236.187.67';
 
 const getSpecificProduct = (productId) => {
   let options = {
@@ -9,14 +9,13 @@ const getSpecificProduct = (productId) => {
     url: `http://${aws}:3050/fec2/hr-rpp/products/${productId}`,
     headers: { Authorization: gitToken.Token },
   };
-  console.log('>>>>>>>>>>> ', options.url);
   return axios(options)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
       // console.log('error:', error);
-      console.log('error 19');
+      // console.log('error 19');
       return error;
     });
 };
@@ -27,14 +26,13 @@ const getProductStyles = (productId) => {
     url: `http://${aws}:3050/fec2/hr-rpp/products/${productId}/styles`,
     headers: { Authorization: gitToken.Token },
   };
-  console.log('>>>>>>>>>>> ', options.url);
   return axios(options)
     .then((response) => {
 
       return response.data;
     }).catch((error) => {
       // console.log('error:', error);
-      console.log('error 38');
+      // console.log('error 38');
       return error;
     });
 };
