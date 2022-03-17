@@ -3,29 +3,46 @@ const express = require('express');
 const productRouter = require('express').Router();
 const bodyParser = require('body-parser');
 
+const models = require('../sdc-overview/sdc-dbs/models/index.js');
+const { pool } = require('./db.js');
+
 productRouter.use(express.json());
 productRouter.use(bodyParser.urlencoded({extended: false}));
 productRouter.use(bodyParser.json());
 
 
+
 productRouter.get('/', async (req, res) => {
-  //
-  console.log('product get');
+  res.sendStatus(200);
+});
+
+productRouter.get('/products', async (req, res) => {
   res.sendStatus(200);
 });
 
 productRouter.get('/:product_id', async (req, res) => {
-  //
-  console.log('product id get');
-  res.sendStatus(200);
+  var product_id = req.params.product_id;
+
+  models.products.getSpecific(pool, product_id)
+    .then((product) => {
+      res.send(product);
+    })
+    .catch((error) => {
+      res.sendStatus(400);
+    });
 });
 
 
+productRouter.get('/:product_id/styles', async (req, res) => {
+  var product_id = req.params.product_id;
 
-productRouter.get(':product_id/styles', async (req, res) => {
-  //
-  console.log('product styles get');
-  res.sendStatus(200);
+  models.products.getStyles(pool, product_id)
+  .then((result) => {
+    res.send(result);
+  })
+  .catch((error) => {
+    res.sendStatus(400);
+  });
 });
 
 
