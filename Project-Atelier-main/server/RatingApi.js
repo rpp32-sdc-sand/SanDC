@@ -58,6 +58,7 @@ const ratingOverview = (productId) => {
 
     headers: { Authorization: gitToken.Token },
   };
+  console.log('in ratingOverview');
   return axios(options)
     .then(response => {
       console.log('this is response from meta', response.data);
