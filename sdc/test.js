@@ -20,13 +20,13 @@ xdescribe('GET /', function() {
 
 describe('product overview tests', function() {
   const pool = new Pool({
-    user: 'postgres',
+    user: 'ubuntu',
     password: '',
     database: 'sdc',
-    host: '52.91.62.180',
+    host: '172.31.93.92',
     port: '5432',
-    max: 1,
-    idleTimeoutMillis: 0
+    // max: 1,
+    // idleTimeoutMillis: 0
   });
 
   describe('test specific product api', function () {
@@ -44,7 +44,7 @@ describe('product overview tests', function() {
         ]
       }
 
-      var result = await models.products.getSpecific(() => {}, pool, 1);
+      var result = await models.products.getSpecific(pool, 1);
 
       expect(JSON.stringify(result)).to.equal(JSON.stringify(productID1));
     });
@@ -63,7 +63,7 @@ describe('product overview tests', function() {
         ]
       }
 
-      var result = await models.products.getSpecificV2(() => {}, pool, 1);
+      var result = await models.products.getSpecific(pool, 1);
       console.log(result);
       expect(JSON.stringify(result)).to.equal(JSON.stringify(productID1));
     });
@@ -132,7 +132,7 @@ describe('product overview tests', function() {
         ]
       }
 
-      var result = await models.products.getStyles(() => {}, pool, 1);
+      var result = await models.products.getStyles(pool, 1);
       expect(JSON.stringify(result)).to.equal(JSON.stringify(style1));
     });
     // add more

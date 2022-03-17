@@ -76,34 +76,34 @@ CREATE TABLE sdc.products.features (
 -- ETL
 
 COPY sdc.products.product(id, name, slogan, description, category, default_price)
-FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/product.csv'
--- FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/product.csv'
+-- FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/product.csv'
+FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/product.csv'
 DELIMITER ','
 CSV HEADER;
 
 
 COPY sdc.products.styles(style_id, product_id, name, sale_price, original_price, "default?")
-FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/styles.csv'
--- FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/styles.csv'
+-- FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/styles.csv'
+FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/styles.csv'
 DELIMITER ','
 CSV HEADER;
 
 COPY sdc.products.photos(id, style_id, url, thumbnail_url)
-FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/photos.csv'
--- FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/photos.csv'
+-- FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/photos.csv'
+FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/photos.csv'
 DELIMITER ','
 CSV HEADER;
 
 
 COPY sdc.products.skus(id, style_id, size, quantity)
-FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/skus.csv'
--- FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/skus.csv'
+-- FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/skus.csv'
+FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/skus.csv'
 DELIMITER ','
 CSV HEADER;
 
 COPY sdc.products.features(id, product_id, feature, value)
-FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/features.csv'
--- FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/features.csv'
+-- FROM '/Users/n8/HackReactor/Coding/sandc/SanDC/sdc/sdc-overview/sdc-dbs/data/features.csv'
+FROM '/home/ubuntu/sdc/SanDC/sdc/sdc-overview/sdc-dbs/data/features.csv'
 DELIMITER ','
 CSV HEADER;
 

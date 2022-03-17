@@ -4,10 +4,11 @@ var products = {
     try {
       var result = await pool.query(`SELECT * FROM sdc.products.product LIMIT ${count} OFFSET ${(page - 1) * count}`);
       // console.log(result);
-      return(result);
+      // cb(result);
+      return result;
     } catch (err) {
       console.log('error: ', err);
-      throw(res);
+      throw(err);
     }},
   getFeatures: async function(pool, product_id) {
     try {
@@ -38,13 +39,32 @@ var products = {
       throw(err)
     });
   },
-
-  // get photo information
-  getPhotos: async function(pool, style_id) {
+  getPhotosV2: async function(pool, style_id) {
     try {
       return await pool.query(`SELECT * FROM sdc.products.photos WHERE style_id = ${style_id}`);
-    } catch (err) {throw(err);}},
-
+    } catch (err) {
+      // console.log('error: ', err);
+      throw(err);
+    }},
+  // get photo information
+  getPhotos: async function(pool, style_id) {
+      return await pool.query(`SELECT * FROM sdc.products.photos WHERE style_id = ${style_id}`)
+        .then((photos) => {
+          // if there's no photos at all, make it empty so to not break fe
+          if (photos.rows.length === 0) {
+            photos.rows[0] = {
+              pk: 0,
+              id: 0,
+              url: '',
+              thumbnail_url: ''
+            }
+          }
+          return photos;
+        })
+        .catch((err) => {
+          throw (err);
+        });
+      },
     // get SKUS
   getSKUS: async function(pool, style_id) {
     try {
@@ -58,18 +78,25 @@ var products = {
       FROM sdc.products.styles WHERE product_id = ${product_id}`
     ).then((style) => {
       // console.log('>>>>>style:', style);
-      if (style.rowCount === 0) { throw(err)};
+      // if (style.rowCount === 0) { throw 400};
       var styleId;
       var promiseArray = [];
       for(var i = 0; i < style.rows.length; i++) {
+        // console.log('i: ', i);
+        // console.log('style rows: ', style.rows[i]);
+
         styleId = style.rows[i].style_id;
         if (style.rows[i].sale_price === "null") {
           style.rows[i].sale_price = null;
         }
+        // console.log(styleId);
         promiseArray.push(products.getPhotos(pool, styleId));
       }
       return Promise.all(promiseArray).then((resolved) => {
+        // console.log('resolved:', resolved);
         resolved.forEach((element, index) => {
+          // console.log('>>>>>>>>>>>>>>>element: ', element.rows);
+          // console.log('element.rows:', element.rows);
           style.rows[index].photos = element.rows;
         });
         return style;

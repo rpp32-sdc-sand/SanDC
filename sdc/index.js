@@ -37,11 +37,11 @@ app.listen(port, () => {
 });
 
 
-app.get('/loaderio-29fe3c1e58b9183842e172225b82501f/', function (req, res) {
+app.get('/productloaderio/', function (req, res) {
   var options = {
     root: path.join(__dirname)
   };
-  var fileName = 'loaderio-29fe3c1e58b9183842e172225b82501f.txt';
+  var fileName = 'loaderio-5d266b869a5c39c0abef546f4d1c50c1.txt';
   res.sendFile(fileName, options, function (err) {
     if (err) {
       next(err);
