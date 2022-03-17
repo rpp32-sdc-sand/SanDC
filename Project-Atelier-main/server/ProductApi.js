@@ -1,12 +1,12 @@
 const axios = require('axios');
 const gitToken = require('../config.js');
 
-var aws = '54.236.187.67';
+var aws = '52.91.189.60';
 
 const getSpecificProduct = (productId) => {
   let options = {
     method: 'GET',
-    url: `http://${aws}:3050/fec2/hr-rpp/products/${productId}`,
+    url: `http://${aws}/products/${productId}`,
     headers: { Authorization: gitToken.Token },
   };
   return axios(options)
@@ -23,7 +23,7 @@ const getSpecificProduct = (productId) => {
 const getProductStyles = (productId) => {
   let options = {
     method: 'GET',
-    url: `http://${aws}:3050/fec2/hr-rpp/products/${productId}/styles`,
+    url: `http://${aws}/products/${productId}/styles`,
     headers: { Authorization: gitToken.Token },
   };
   return axios(options)

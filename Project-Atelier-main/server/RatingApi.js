@@ -52,8 +52,10 @@ const ratingOverview = (productId) => {
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${productId}`,
     headers: { Authorization: gitToken.Token },
   };
+  console.log('in ratingOverview');
   return axios(options)
     .then(response => {
+      console.log(response.data);
       return response.data;
     })
     .catch((err) => {
