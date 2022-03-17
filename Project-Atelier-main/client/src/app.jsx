@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import TopSearchBar from './components/TopSearchBar/TopSearchBar.jsx';
-// import SiteWideMessage from './components/SiteWideMessage/SiteWideMessage.jsx';
-// import ProductOverviewWithClickData from './components/ProdOverview/OverView.jsx';
-// import RelProductsWithClickData from './components/RelProductsComponents/RelProducts.jsx';
+import TopSearchBar from './components/TopSearchBar/TopSearchBar.jsx';
+import SiteWideMessage from './components/SiteWideMessage/SiteWideMessage.jsx';
+import ProductOverviewWithClickData from './components/ProdOverview/OverView.jsx';
+import RelProductsWithClickData from './components/RelProductsComponents/RelProducts.jsx';
 import QnAwithClickData from './components/QnAcomponents/mainQnA.jsx';
-//import RatingsNReviews from './components/RatingsNReviews/RatingsNReviews.jsx';
+import RatingsNReviews from './components/RatingsNReviews/RatingsNReviews.jsx';
 import axios from 'axios';
 
 import ClickedData from './components/ClickDataAnalytics.jsx';
@@ -55,7 +55,7 @@ class App extends React.Component {
     const [productInfo, productStyleInfo, relProductInfo, questionsList, reviewInfo] = await Promise.all([
       getProductInfo(productId),
       getStyleInfo(productId),
-      getRelatedProductInfo(productId),
+      getRelatedProductInfo(productId), //
       getQuestionsListInfo(productId),
     ]);
 
