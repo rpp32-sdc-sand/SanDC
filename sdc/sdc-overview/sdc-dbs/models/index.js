@@ -3,8 +3,6 @@ var products = {
   getList: async function(pool, page = 1, count = 5) {  // unused
     try {
       var result = await pool.query(`SELECT * FROM sdc.products.product LIMIT ${count} OFFSET ${(page - 1) * count}`);
-      // console.log(result);
-      // cb(result);
       return result;
     } catch (err) {
       console.log('error: ', err);
@@ -19,7 +17,6 @@ var products = {
     }},
   // getSpecificProduct
   getSpecific: async function(pool, product_id) {
-    // try {
     return await pool.query(
       `SELECT
         sdc.products.product.id, sdc.products.product.name,
@@ -43,7 +40,6 @@ var products = {
     try {
       return await pool.query(`SELECT * FROM sdc.products.photos WHERE style_id = ${style_id}`);
     } catch (err) {
-      // console.log('error: ', err);
       throw(err);
     }},
   // get photo information
@@ -77,26 +73,17 @@ var products = {
       `SELECT style_id, product_id, name, sale_price, original_price, "default?"
       FROM sdc.products.styles WHERE product_id = ${product_id}`
     ).then((style) => {
-      // console.log('>>>>>style:', style);
-      // if (style.rowCount === 0) { throw 400};
       var styleId;
       var promiseArray = [];
       for(var i = 0; i < style.rows.length; i++) {
-        // console.log('i: ', i);
-        // console.log('style rows: ', style.rows[i]);
-
         styleId = style.rows[i].style_id;
         if (style.rows[i].sale_price === "null") {
           style.rows[i].sale_price = null;
         }
-        // console.log(styleId);
         promiseArray.push(products.getPhotos(pool, styleId));
       }
       return Promise.all(promiseArray).then((resolved) => {
-        // console.log('resolved:', resolved);
         resolved.forEach((element, index) => {
-          // console.log('>>>>>>>>>>>>>>>element: ', element.rows);
-          // console.log('element.rows:', element.rows);
           style.rows[index].photos = element.rows;
         });
         return style;
