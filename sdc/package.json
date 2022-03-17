@@ -4,13 +4,14 @@
   "description": "Sand SDC",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "start:nodemon": "nodemon index.js",
     "start:newRelic": "nodemon -r newrelic index.js",
     "test": "node ./node_modules/mocha/bin/mocha",
     "overviewDB": "date; psql -f ./sdc-overview/sdc-dbs/models/pgschema.sql -p 5432; date",
     "k6:prodOverview": "k6 run ./sdc-overview/k6test.js",
-    "downloadOverData": "gdown https://drive.google.com/uc?id=1fXN-J3gxtA9ZUa2EqzVFnkjszWwd7yVF; gdown https://drive.google.com/uc?id=1EVVGKLDGzaU0amRaPV-tHZx11ASwibT7; gdown https://drive.google.com/uc?id=1tNIJx2QhTRfd4qVmOVgJgiyvoICbTJH-; gdown https://drive.google.com/uc?id=1o64GDzSqwkoRoZvP3SmGY_Mrv2708oPn, gdown https://drive.google.com/uc?id=1bY6hc-b1FbZsHe_Cdhq6wqSK7QBo1h8h"
+    "downloadOverData": "gdown https://drive.google.com/uc?id=1fXN-J3gxtA9ZUa2EqzVFnkjszWwd7yVF; gdown https://drive.google.com/uc?id=1EVVGKLDGzaU0amRaPV-tHZx11ASwibT7; gdown https://drive.google.com/uc?id=1tNIJx2QhTRfd4qVmOVgJgiyvoICbTJH-; gdown https://drive.google.com/uc?id=1o64GDzSqwkoRoZvP3SmGY_Mrv2708oPn, gdown https://drive.google.com/uc?id=1bY6hc-b1FbZsHe_Cdhq6wqSK7QBo1h8h",
+    "login": "ssh -i \"/Users/justintat/bootcamp/SDC/SanDC-1/sdc/sdc-overview/qnaDb/ec2Logins/FirstSDCserver.pem\" ubuntu@ec2-52-91-86-111.compute-1.amazonaws.com"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +29,9 @@
     "body-parser": "^1.19.1",
     "express": "^4.17.2",
     "newrelic": "^8.8.0",
+    "fast-csv": "^4.3.6",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.2",
     "pg": "^8.7.3"
   }
 }
